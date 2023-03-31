@@ -1,8 +1,6 @@
+#include "Cancion.h"
 #define LISTACANCIONES_H
 
-#include <string>
-#include <vector>
-#include <cancion.h>
 typedef struct ListaCanciones ListaCanciones;
 
 struct ListaCanciones{

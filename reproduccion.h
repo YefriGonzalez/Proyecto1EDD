@@ -1,9 +1,9 @@
 
+
+#include <vector>
+#include "Cancion.h"
 #define REPRODUCCION_H
 
-#include <string>
-#include <vector>
-#include <cancion.h>
 
 typedef struct Reproduccion Reproduccion;
 struct Reproduccion{

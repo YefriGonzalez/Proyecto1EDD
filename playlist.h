@@ -1,6 +1,5 @@
 #define PLAYLIST_H
 #include <string>
-#include <vector>
 #include <listacanciones.h>
 #include <reproduccion.h>
 typedef struct PlayList PlayList;
