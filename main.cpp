@@ -4,7 +4,7 @@
 #include "Cancion.h"
 using namespace std;
 void menu();
-int main(int argc, const char **argv)
+int main()
 {
     menu();
     return 0;
@@ -13,9 +13,9 @@ int main(int argc, const char **argv)
 void menu()
 {
     int opcion = -1;
-    
-    Cancion *start=new Cancion();
-    
+
+    // Cancion *start=new Cancion();
+    HandlerSong handlerSong;
     while (opcion != 0)
     {
         cout << "----------------Menu----------------" << endl;
@@ -26,6 +26,13 @@ void menu()
         cout << "   0.Salir" << endl;
         cout << "Ingrese la opcion: ";
         cin >> opcion;
+        if (!cin)
+        {
+            cout << "       Error, no ha ingresado un numero" << endl;
+            cin.clear();
+            cin.ignore(5, '\n');
+            break;
+        }
         switch (opcion)
         {
         case 1:
@@ -41,19 +48,26 @@ void menu()
                 cout << "   0.Regresar" << endl;
                 cout << "Ingrese la opcion: ";
                 cin >> opC;
+                if (!cin)
+                {
+                    cout << "       Error, no ha ingresado un numero" << endl;
+                    cin.clear();
+                    cin.ignore(256, '\n');
+                    break;
+                }
                 switch (opC)
                 {
                 case 1:
-                    start->insertCancion();
+                    handlerSong.addSong();
                     break;
                 case 2:
-                    start->deleteCancion();
+                    handlerSong.deleteCancion();
                     break;
                 case 3:
-                    start->findWithName();
+                    handlerSong.findWithName();
                     break;
                 case 4:
-                    start->displaySongs();
+                    handlerSong.displaySongs();
                     break;
                 default:
                     break;
