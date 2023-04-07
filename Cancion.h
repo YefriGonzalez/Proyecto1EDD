@@ -4,10 +4,10 @@
 #include <stdio.h>
 using namespace std;
 
-#ifndef CANCION_H
-#define CANCION_H
+#ifndef SONG_H
+#define SONG_H
 
-#endif
+
 struct Song
 {
     int id;
@@ -72,7 +72,7 @@ public:
         else
         {
             ptr = start;
-            cout << "Canciones: " << endl;
+            cout << "Canciones en store: " << endl;
             while (ptr != NULL)
             {
                 cout << " Indice: " << ptr->id << ", Nombre: " << ptr->nombre << ", Path: " + ptr->path << endl;
@@ -107,6 +107,28 @@ public:
             }
             cout << "Cancion no encontrada " << endl;
         }
+    }
+
+    Song *findWithId(int id)
+    {
+        Song *ptr=start;
+        if (start == NULL)
+        {
+            cout << "   La lista esta vacia" << endl;
+            return ptr;
+        }
+
+        ptr = start;
+        while (ptr != NULL)
+        {
+            if (ptr->id == id)
+            {
+                return ptr;
+            }
+            ptr = ptr->next;
+        }
+        cout << "Cancion no encontrada " << endl;
+        return nullptr;
     }
 
     void deleteCancion()
@@ -148,17 +170,17 @@ public:
             }
             if (ptr == NULL)
             {
-                cout << "Cancion no encontrada" << endl;
+                cout << "   Cancion no encontrada" << endl;
                 return;
             }
             if (ptr == start)
             {
-                cout << "Cancion eliminada: " << ptr->nombre << endl;
+                cout << "       Cancion eliminada: " << ptr->nombre << endl;
                 start = start->next;
             }
             else
             {
-                cout << "Cancion eliminada: " << ptr->nombre << endl;
+                cout << "       Cancion eliminada: " << ptr->nombre << endl;
                 temp->next = ptr->next;
             }
 
@@ -179,18 +201,18 @@ public:
 
             if (ptr == NULL)
             {
-                cout << "Cancion no encontrada" << endl;
+                cout << "       Cancion no encontrada" << endl;
                 return;
             }
 
             if (ptr == start)
             {
-                cout << "Cancion eliminada: " << ptr->nombre << endl;
+                cout << "       Cancion eliminada: " << ptr->nombre << endl;
                 start = start->next;
             }
             else
             {
-                cout << "Cancion eliminada: " << ptr->nombre << endl;
+                cout << "       Cancion eliminada: " << ptr->nombre << endl;
                 temp->next = ptr->next;
             }
             delete ptr;
@@ -199,4 +221,9 @@ public:
             break;
         }
     }
+    Song *getStart()
+    {
+        return start;
+    }
 };
+#endif

@@ -1,7 +1,9 @@
 
 #include <iostream>
 #include <stdio.h>
+#include "playlist.h"
 #include "Cancion.h"
+#include "reproduccion.h"
 using namespace std;
 void menu();
 int main()
@@ -13,9 +15,8 @@ int main()
 void menu()
 {
     int opcion = -1;
-
-    // Cancion *start=new Cancion();
     HandlerSong handlerSong;
+    HandlerPlayList handlerPlayList;
     while (opcion != 0)
     {
         cout << "----------------Menu----------------" << endl;
@@ -87,10 +88,39 @@ void menu()
                 cout << "   3.Editar playlist" << endl;
                 cout << "   4.Listar playlists" << endl;
                 cout << "   5.Agregar cancion" << endl;
-                cout << "   4.Eliminar cancion" << endl;
+                cout << "   6.Eliminar cancion" << endl;
                 cout << "   0.Regresar" << endl;
                 cout << "Ingrese la opcion: ";
                 cin >> opP;
+                if (!cin)
+                {
+                    cout << "       Error, no ha ingresado un numero" << endl;
+                    cin.clear();
+                    cin.ignore(256, '\n');
+                    break;
+                }
+                switch (opP)
+                {
+                case 1:
+                    handlerPlayList.addPlayList(handlerSong);
+                    break;
+                case 2:
+                    handlerPlayList.deletePlayList();
+                    break;
+                case 3:
+                    handlerPlayList.editPlayList();
+                    break;
+                case 4:
+                    handlerPlayList.displayLists();
+                    break;
+                case 5:
+                    handlerPlayList.addSongs(handlerSong);
+                    break;
+                case 6:
+                    handlerPlayList.deleleteSongs();
+                default:
+                    break;
+                }
             }
         }
         break;
