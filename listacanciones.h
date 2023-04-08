@@ -1,4 +1,4 @@
-#include "SDL2/SDL.h"
+#include <SDL2/SDL.h>
 #include <SDL2/SDL_mixer.h>
 #include "Cancion.h"
 #ifndef SONGSLIST_H
@@ -23,6 +23,7 @@ class ListSongs
 private:
     NodeSong *head;
     NodeSong *tail;
+    NodeSong *songPlay;
 
 public:
     ListSongs()
@@ -133,35 +134,112 @@ public:
             cout << "SDL_mixer no pudo inicializar! Error: " << Mix_GetError() << endl;
             return;
         }
-        NodeSong *ptr = head;
-        while (ptr != nullptr)
+        songPlay = head;
+        while (songPlay != nullptr)
         {
-            Mix_Music *play = Mix_LoadMUS(ptr->song->path.c_str());
+            Mix_Music *play = Mix_LoadMUS(songPlay->song->path.c_str());
             if (play == nullptr)
             {
-                cout << "No se pudo cargar la canción " << ptr->song->nombre << "! Error: " << Mix_GetError() << endl;
-                ptr = ptr->siguiente;
+                cout << "No se pudo cargar la canción " << songPlay->song->nombre << "! Error: " << Mix_GetError() << endl;
+                songPlay = songPlay->siguiente;
                 continue;
             }
-            cout << "Reproduciendo " << ptr->song->nombre << "..." << endl;
+            cout << "Reproduciendo " << songPlay->song->nombre << "..." << endl;
             Mix_PlayMusic(play, 1);
             while (Mix_PlayingMusic())
             {
                 SDL_Delay(1000);
             }
             Mix_FreeMusic(play);
-            ptr = ptr->siguiente;
+            songPlay = songPlay->siguiente;
         }
         Mix_CloseAudio();
     }
 
     void playRepeat()
     {
-        if (head == NULL)
+        if (newList->head == NULL)
         {
             cout << "       La lista de canciones esta vacia" << endl;
             return;
         }
+         if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0)
+        {
+            cout << "SDL_mixer no pudo inicializar! Error: " << Mix_GetError() << endl;
+            return;
+        }
+        songPlay=newList->head;
+        while (songPlay != nullptr)
+        {
+            Mix_Music *play = Mix_LoadMUS(songPlay->song->path.c_str());
+            if (play == nullptr)
+            {
+                cout << "No se pudo cargar la canción " << songPlay->song->nombre << "! Error: " << Mix_GetError() << endl;
+                songPlay = songPlay->siguiente;
+                continue;
+            }
+            cout << "Reproduciendo " << songPlay->song->nombre << "..." << endl;
+            Mix_PlayMusic(play, 1);
+            while (Mix_PlayingMusic())
+            {
+                SDL_Delay(1000);
+            }
+            Mix_FreeMusic(play);
+            songPlay = songPlay->siguiente;
+        }
+        Mix_CloseAudio();
+    }
+
+    void nextSong()
+    {
+        if (songPlay != nullptr)
+        {
+            if (songPlay->siguiente != nullptr)
+            {
+                songPlay = songPlay->siguiente;
+            }
+            else
+            {
+                cout << "      La lista finalizo" << endl;
+            }
+        }
+        else
+        {
+            cout << "      No se esta reproduciendo ninguna lista" << endl;
+        }
+    }
+
+    void backSong()
+    {
+        if (songPlay != nullptr)
+        {
+            if (songPlay->anterior != nullptr)
+            {
+                songPlay = songPlay->anterior;
+            }
+            else
+            {
+                cout << "      La lista finalizo" << endl;
+            }
+        }
+        else
+        {
+            cout << "      No se esta reproduciendo ninguna lista" << endl;
+        }
+    }
+
+    ListSongs *newList;
+    void convertDoubleList(ListSongs *listSong)
+    {
+         newList = listSong;
+        if (newList->head == nullptr)
+        {
+            cout << "       La lista de canciones esta vacia" << endl;
+            return;
+        }
+        newList->head->anterior = newList->tail;
+        newList->tail->siguiente = newList->head;
+        this->playRepeat();
     }
 };
 

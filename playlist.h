@@ -386,4 +386,50 @@ public:
             ptr->deleteSong();
         }
     }
+
+    void playToList(int type, ListSongs *listSongs = nullptr)
+    {
+        if (start == NULL)
+        {
+            cout << "       La lista esta vacia" << endl;
+            return;
+        }
+        int id;
+        this->displayListSimple();
+        cout << "       Ingrese el id de la Play List que desea reproducir: ";
+        cin >> id;
+        PlayList *ptr;
+        ptr = start;
+        while (ptr != NULL && ptr->id != id)
+        {
+            ptr = ptr->next;
+        }
+        if (ptr == NULL)
+        {
+            cout << "       PlayList no encontrada" << endl;
+            return;
+        }
+        if (type == 1)
+        {
+            if (ptr == start)
+            {
+                start->listSongs->playNormal();
+            }
+            else
+            {
+                ptr->listSongs->playNormal();
+            }
+        }
+        else if (type == 2 && listSongs != nullptr)
+        {
+            if (ptr == start)
+            {
+                start->listSongs->convertDoubleList(start->listSongs);
+            }
+            else
+            {
+                ptr->listSongs->convertDoubleList(ptr->listSongs);
+            }
+        }
+    }
 };

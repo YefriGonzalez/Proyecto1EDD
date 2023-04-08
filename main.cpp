@@ -1,9 +1,10 @@
-
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_mixer.h>
 #include <iostream>
 #include <stdio.h>
 #include "playlist.h"
 #include "Cancion.h"
-#include "reproduccion.h"
+
 using namespace std;
 void menu();
 int main()
@@ -139,6 +140,17 @@ void menu()
                 cout << "   0.Regresar" << endl;
                 cout << "Ingrese la opcion: ";
                 cin >> opR;
+                switch (opR)
+                {
+                case 1:
+                    handlerPlayList.playToList(1);
+                    break;
+                case 2:
+                    handlerPlayList.playToList(2);
+                    break;
+                default:
+                    break;
+                }
             }
         }
         break;

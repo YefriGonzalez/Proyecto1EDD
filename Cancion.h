@@ -40,9 +40,10 @@ public:
         }
 
         cout << "Ingrese el nombre de la cancion: ";
-        cin >> name;
+        cin.ignore();
+        getline(cin,name);
         cout << "Ingrese el path de la cancion: ";
-        cin >> pathTmp;
+        getline(cin,pathTmp);
         int id = ++currentId;
         temp = new Song{id, name, pathTmp, NULL};
         if (start == NULL)
