@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include "playlist.h"
 #include "Cancion.h"
+#include "CargaMasiva.h"
 
 using namespace std;
 void menu();
@@ -157,13 +158,12 @@ void menu()
 
         case 4:
         {
+          MassiveChargue ms;
+          ms.chargueFile(handlerSong,handlerPlayList);  
         }
         break;
-
         default:
-        {
-        }
-        break;
+            break;
         }
     }
 }

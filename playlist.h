@@ -3,7 +3,7 @@
 #ifndef PLAYLIST_H
 #define PLAYLIST_H
 
-#endif
+
 struct PlayList
 {
     int id;
@@ -433,3 +433,4 @@ public:
         }
     }
 };
+#endif
