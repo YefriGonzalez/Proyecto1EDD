@@ -2,7 +2,7 @@
 #include <SDL2/SDL_mixer.h>
 #include <iostream>
 #include <stdio.h>
-
+#include "CargaMasiva.h"
 #include "playlist.h"
 #include "Cancion.h"
 
