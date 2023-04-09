@@ -2,6 +2,7 @@
 #include <SDL2/SDL_mixer.h>
 #include <iostream>
 #include <stdio.h>
+
 #include "playlist.h"
 #include "Cancion.h"
 
@@ -17,6 +18,7 @@ void menu()
 {
     int opcion = -1;
     HandlerSong handlerSong;
+
     HandlerPlayList handlerPlayList;
     while (opcion != 0)
     {
@@ -143,10 +145,23 @@ void menu()
                 switch (opR)
                 {
                 case 1:
+                {
+                    // thread play(reproducir,ref(handlerPlayList),1);
+                    // thread h(bind(&HandlerPlayList::playToList,(1,handlerPlayList)));
                     handlerPlayList.playToList(1);
-                    break;
+                }
+
+                break;
                 case 2:
+                {
+                    // thread play(reproducir,ref(handlerPlayList),2);
                     handlerPlayList.playToList(2);
+                }
+                case 3:
+                    handlerPlayList.nextSong();
+                    break;
+                case 4:
+                    handlerPlayList.backSong();
                     break;
                 default:
                     break;

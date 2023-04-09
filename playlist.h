@@ -1,4 +1,5 @@
 #include <string>
+
 #include "listacanciones.h"
 #ifndef PLAYLIST_H
 #define PLAYLIST_H
@@ -116,9 +117,10 @@ public:
         string descri;
         PlayList *ptr;
         cout << "   Ingrese el nombre de la playlist: ";
-        cin >> n;
+        cin.ignore();
+        getline(cin,n);
         cout << "   Ingrese la descripcion de la playlist: ";
-        cin >> descri;
+        getline(cin,descri);
         int id = ++currentId;
         PlayList *list = new PlayList(id, n, descri);
         int opcion;
@@ -387,7 +389,8 @@ public:
         }
     }
 
-    void playToList(int type, ListSongs *listSongs = nullptr)
+    PlayList *play;
+    void playToList(int type)
     {
         if (start == NULL)
         {
@@ -398,38 +401,72 @@ public:
         this->displayListSimple();
         cout << "       Ingrese el id de la Play List que desea reproducir: ";
         cin >> id;
-        PlayList *ptr;
-        ptr = start;
-        while (ptr != NULL && ptr->id != id)
+
+        play = start;
+        while (play != NULL && play->id != id)
         {
-            ptr = ptr->next;
+            play = play->next;
         }
-        if (ptr == NULL)
+        if (play == NULL)
         {
             cout << "       PlayList no encontrada" << endl;
             return;
         }
         if (type == 1)
         {
-            if (ptr == start)
+            if (play == start)
             {
-                start->listSongs->playNormal();
+                start->listSongs->play(1);
+               
             }
             else
             {
-                ptr->listSongs->playNormal();
+                play->listSongs->play(1);
             }
         }
-        else if (type == 2 && listSongs != nullptr)
+        else if (type == 2)
         {
-            if (ptr == start)
+            if (play == start)
             {
-                start->listSongs->convertDoubleList(start->listSongs);
+                start->listSongs->play(2);
+               
             }
             else
             {
-                ptr->listSongs->convertDoubleList(ptr->listSongs);
+                play->listSongs->play(2);
             }
+        }
+    }
+
+    void nextSong()
+    {
+        if(play==nullptr){
+            cout<<"No hay lista en reproduccion"<<endl;
+            return;
+        }
+        if (play == start)
+        {
+            start->listSongs->nextSong();
+        }
+        else
+        {
+            play->listSongs->nextSong();
+        }
+    }
+
+    void backSong()
+    {
+        if(play==nullptr){
+            cout<<"No hay lista en reproduccion"<<endl;
+            return;
+        }
+        if (play == start)
+        {
+            start->listSongs->backSong();
+        }
+        else
+        {
+            play->listSongs->backSong();
         }
     }
 };
