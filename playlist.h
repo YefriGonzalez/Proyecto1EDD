@@ -4,7 +4,6 @@
 #ifndef PLAYLIST_H
 #define PLAYLIST_H
 
-
 struct PlayList
 {
     int id;
@@ -56,6 +55,18 @@ struct PlayList
         }
     }
 
+    void addSongToFile(int idSong, HandlerSong handlerSong)
+    {
+        Song *song = handlerSong.findWithId(idSong);
+        if (song != nullptr)
+        {
+            listSongs->addSong(song);
+        }
+        else
+        {
+            cout << "Cancion no encontrada " << endl;
+        }
+    }
     void deleteSong()
     {
         int idTmp;
@@ -91,6 +102,19 @@ struct PlayList
         }
     }
 
+    void deleteSongToFile(int idSong)
+    {
+        Song *song = listSongs->findWithId(idSong);
+        if (song != nullptr)
+        {
+            listSongs->deleteSong(song->nombre);
+        }
+        else
+        {
+            cout << "   Cancion no encontrada en la playlist " << endl;
+        }
+    }
+
     void ediPlayList()
     {
         cout << "   Ingrese el nuevo nombre de la lista: ";
@@ -118,9 +142,9 @@ public:
         PlayList *ptr;
         cout << "   Ingrese el nombre de la playlist: ";
         cin.ignore();
-        getline(cin,n);
+        getline(cin, n);
         cout << "   Ingrese la descripcion de la playlist: ";
-        getline(cin,descri);
+        getline(cin, descri);
         int id = ++currentId;
         PlayList *list = new PlayList(id, n, descri);
         int opcion;
@@ -150,6 +174,27 @@ public:
             }
             ptr->next = list;
         }
+    }
+
+    int addPlayListToFile(HandlerSong handlerSong, string n, string d)
+    {
+        PlayList *ptr;
+        int id = ++currentId;
+        PlayList *list = new PlayList(id, n, d);
+        if (start == nullptr)
+        {
+            start = list;
+        }
+        else
+        {
+            ptr = start;
+            while (ptr->next != nullptr)
+            {
+                ptr = ptr->next;
+            }
+            ptr->next = list;
+        }
+        return id;
     }
     void displayListSimple()
     {
@@ -275,6 +320,64 @@ public:
         delete ptr;
     }
 
+    void deletePlayListToFile(int option, int idPlayList, string namePlayList)
+    {
+        if (start == NULL)
+        {
+            cout << "       La lista esta vacia" << endl;
+            return;
+        }
+        PlayList *ptr = start;
+        PlayList *temp;
+        if (option == 1)
+        {
+            while (ptr != NULL && ptr->id != idPlayList)
+            {
+                temp = ptr;
+                ptr = ptr->next;
+            }
+            if (ptr == NULL)
+            {
+                cout << "       PlayList no encontrada" << endl;
+                return;
+            }
+            if (ptr == start)
+            {
+                cout << "       PlayList eliminada: " << ptr->name << endl;
+                start = start->next;
+            }
+            else
+            {
+                cout << "       PlayList eliminada: " << ptr->name << endl;
+                temp->next = ptr->next;
+            }
+            delete ptr;
+        }
+        else if (option == 2)
+        {
+            while (ptr != NULL && ptr->name != namePlayList)
+            {
+                temp = ptr;
+                ptr = ptr->next;
+            }
+            if (ptr == NULL)
+            {
+                cout << "       PlayList no encontrada" << endl;
+                return;
+            }
+            if (ptr == start)
+            {
+                cout << "       PlayList eliminada: " << ptr->name << endl;
+                start = start->next;
+            }
+            else
+            {
+                cout << "       PlayList eliminada: " << ptr->name << endl;
+                temp->next = ptr->next;
+            }
+            delete ptr;
+        }
+    }
     void editPlayList()
     {
         if (start == NULL)
@@ -351,6 +454,34 @@ public:
         }
     }
 
+    void addSongToFile(int idPlayList, int idSong, HandlerSong handlerSong)
+    {
+        if (start == NULL)
+        {
+            cout << "       La lista esta vacia" << endl;
+            return;
+        }
+        PlayList *ptr;
+        ptr = start;
+        while (ptr != NULL && ptr->id != idPlayList)
+        {
+            ptr = ptr->next;
+        }
+        if (ptr == NULL)
+        {
+            cout << "       PlayList no encontrada" << endl;
+            return;
+        }
+        if (ptr == start)
+        {
+            start->addSongToFile(idSong, handlerSong);
+        }
+        else
+        {
+            ptr->addSongToFile(idSong, handlerSong);
+        }
+    }
+
     void deleleteSongs()
     {
         if (start == NULL)
@@ -389,6 +520,33 @@ public:
         }
     }
 
+    void deleteSongToFile(int idPlayList, int idSong)
+    {
+        if (start == NULL)
+        {
+            cout << "       La lista esta vacia" << endl;
+            return;
+        }
+        PlayList *ptr;
+        ptr = start;
+        while (ptr != NULL && ptr->id != idPlayList)
+        {
+            ptr = ptr->next;
+        }
+        if (ptr == NULL)
+        {
+            cout << "       PlayList no encontrada" << endl;
+            return;
+        }
+        if (ptr == start)
+        {
+            start->deleteSongToFile(idSong);
+        }
+        else
+        {
+            ptr->deleteSongToFile(idSong);
+        }
+    }
     PlayList *play;
     void playToList(int type)
     {
@@ -417,7 +575,6 @@ public:
             if (play == start)
             {
                 start->listSongs->play(1);
-               
             }
             else
             {
@@ -429,7 +586,6 @@ public:
             if (play == start)
             {
                 start->listSongs->play(2);
-               
             }
             else
             {
@@ -440,8 +596,9 @@ public:
 
     void nextSong()
     {
-        if(play==nullptr){
-            cout<<"No hay lista en reproduccion"<<endl;
+        if (play == nullptr)
+        {
+            cout << "No hay lista en reproduccion" << endl;
             return;
         }
         if (play == start)
@@ -456,8 +613,9 @@ public:
 
     void backSong()
     {
-        if(play==nullptr){
-            cout<<"No hay lista en reproduccion"<<endl;
+        if (play == nullptr)
+        {
+            cout << "No hay lista en reproduccion" << endl;
             return;
         }
         if (play == start)
