@@ -103,31 +103,7 @@ public:
         XMLElement *delet = doc.FirstChildElement("Eliminar");
         while (delet != nullptr)
         {
-            XMLElement *song = delet->FirstChildElement("cancion");
-            while (song != nullptr)
-            {
-                int idSong = 0;
-                string nameSong;
-                XMLElement *namesongNode = song->FirstChildElement("Nombre");
-                XMLElement *idSongNode = song->FirstChildElement("id");
-                if (namesongNode != nullptr)
-                {
-                    nameSong = namesongNode->GetText();
-                }
-                if (idSongNode != nullptr)
-                {
-                    idSong = idSongNode->IntText();
-                }
-                if (!nameSong.empty())
-                {
-                    handlerS.deleteSongToFile(2, idSong, nameSong);
-                }
-                else if (idSong != 0)
-                {
-                    handlerS.deleteSongToFile(1, idSong, " ");
-                }
-                song = song->NextSiblingElement("cancion");
-            }
+
             XMLElement *list = delet->FirstChildElement("Lista");
             while (list != nullptr)
             {
@@ -158,13 +134,37 @@ public:
                         handlerP.deleteSongToFile(idList, idSong);
                         pos = pos->NextSiblingElement("pos");
                     }
-                    
                 }
-                else if (idList != 0 &&songList==nullptr)
+                else if (idList != 0 && songList == nullptr)
                 {
                     handlerP.deletePlayListToFile(1, idList, " ");
                 }
                 list = list->NextSiblingElement("Lista");
+            }
+            XMLElement *song = delet->FirstChildElement("cancion");
+            while (song != nullptr)
+            {
+                int idSong = 0;
+                string nameSong;
+                XMLElement *namesongNode = song->FirstChildElement("Nombre");
+                XMLElement *idSongNode = song->FirstChildElement("id");
+                if (namesongNode != nullptr)
+                {
+                    nameSong = namesongNode->GetText();
+                }
+                if (idSongNode != nullptr)
+                {
+                    idSong = idSongNode->IntText();
+                }
+                if (!nameSong.empty())
+                {
+                    handlerS.deleteSongToFile(2, idSong, nameSong);
+                }
+                else if (idSong != 0)
+                {
+                    handlerS.deleteSongToFile(1, idSong, " ");
+                }
+                song = song->NextSiblingElement("cancion");
             }
             delet = delet->NextSiblingElement("Eliminar");
         }
