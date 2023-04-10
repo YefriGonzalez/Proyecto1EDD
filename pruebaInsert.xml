@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Insertar>
+	<Cancion>
+		<Nombre>Carga 1</Nombre>
+		<path>path de carga 1</path>
+	</Cancion>
+	<Cancion>
+		<Nombre>Carga 2</Nombre>
+		<path>path de carga 2</path>
+	</Cancion>
+	<Cancion>
+		<Nombre>Carga 3</Nombre>
+		<path>path de carga 3</path>
+		<Pos>3</Pos>
+	</Cancion>
+	<Cancion>
+		<Nombre>Carga 4</Nombre>
+		<path>path de carga 4</path>
+		<Pos>2</Pos>
+	</Cancion>
+	<Cancion>
+		<Nombre>Carga 7</Nombre>
+		<path>path de carga 7</path>
+		<Pos>7</Pos>
+	</Cancion>
+	<Lista>
+		<Nombre>Lista 1</Nombre>
+		<Descripcion>Lista 1</Descripcion>
+	</Lista>
+	<Lista>
+		<Nombre>Lista 2</Nombre>
+		<Descripcion>Lista 2</Descripcion>
+	</Lista>
+	<Lista>
+		<Nombre>Lista 3</Nombre>
+		<Descripcion>Lista 3</Descripcion>
+		<Canciones>
+			<pos>1</pos>
+			<pos>2</pos>
+			<pos>3</pos>
+			<pos>7</pos>
+		</Canciones>
+	</Lista>
+</Insertar>

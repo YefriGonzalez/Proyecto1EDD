@@ -18,7 +18,7 @@ void menu()
 {
     int opcion = -1;
     HandlerSong handlerSong;
-
+    MassiveChargue ms;
     HandlerPlayList handlerPlayList;
     while (opcion != 0)
     {
@@ -172,6 +172,7 @@ void menu()
 
         case 4:
         {
+            ms.chargueFile(handlerSong, handlerPlayList);
         }
         break;
 

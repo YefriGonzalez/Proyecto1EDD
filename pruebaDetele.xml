@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Eliminar>
+    <cancion>
+        <id>1</id>
+    </cancion>
+    <cancion>
+        <Nombre>Carga 2</Nombre>
+    </cancion>
+    <Lista>
+        <id>1</id>
+    </Lista>
+    <Lista>
+        <id>3</id>
+        <canciones>
+            <pos>1</pos>
+            <pos>3</pos>
+        </canciones>
+    </Lista>
+</Eliminar>
