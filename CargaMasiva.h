@@ -12,7 +12,7 @@ using namespace tinyxml2;
 class MassiveChargue
 {
 private:
-    tinyxml2::XMLDocument doc;
+    XMLDocument doc;
 
 public:
     MassiveChargue()
@@ -32,16 +32,11 @@ public:
             cout << "Error al cargar el archivo XML." << endl;
             return;
         }
-        tinyxml2::XMLElement *insert = doc.FirstChildElement("Insertar");
-        if (!insert)
-        {
-            std::cout << "Error: Elemento raíz 'Insertar' no encontrado\n";
-            return;
-        }
+        XMLElement *insert = doc.FirstChildElement("Insertar");
+
         while (insert != nullptr)
         {
-            tinyxml2::XMLElement *song = insert->FirstChildElement("cancion");
-
+            XMLElement *song = insert->FirstChildElement("cancion");
             while (song != nullptr)
             {
                 string pathSong;
@@ -49,19 +44,22 @@ public:
                 string posSong;
                 nameSong = song->FirstChildElement("Nombre")->GetText();
                 pathSong = song->FirstChildElement("path")->GetText();
-                posSong = song->FirstChildElement("Pos")->GetText();
+                XMLElement *pos = song->FirstChildElement("Pos");
+                if (pos != nullptr)
+                {
+                    posSong = pos->GetText();
+                }
+
                 if (!nameSong.empty() && !pathSong.empty())
                 {
                     if (posSong.empty())
                     {
                         handlerS.addSongToFile(nameSong, pathSong);
-                        cout << "Cancion Agregada!!" << endl;
                     }
                     else
                     {
                         int pos = stoi(posSong);
                         handlerS.addSongToFile(nameSong, pathSong, pos);
-                        cout << "Cancion Agregada!!" << endl;
                     }
                 }
                 else
@@ -70,7 +68,8 @@ public:
                 }
                 song = song->NextSiblingElement("cancion");
             }
-            tinyxml2::XMLElement *list = insert->FirstChildElement("Lista");
+            XMLElement *list = insert->FirstChildElement("Lista");
+            
             while (list != nullptr)
             {
                 string nameList;
@@ -78,13 +77,15 @@ public:
                 int id;
                 nameList = list->FirstChildElement("Nombre")->GetText();
                 descriptionList = list->FirstChildElement("Description")->GetText();
-                tinyxml2::XMLElement *songList = list->FirstChildElement("Canciones");
+                XMLElement *songList = list->FirstChildElement("Canciones");
+                cout << "Si lee lista 1 " << endl;
+
                 if (!nameList.empty() && !descriptionList.empty())
                 {
                     id = handlerP.addPlayListToFile(handlerS, nameList, descriptionList);
                     if (songList != nullptr)
                     {
-                        tinyxml2::XMLElement *pos = songList->FirstChildElement("pos");
+                        XMLElement *pos = songList->FirstChildElement("pos");
                         while (pos != nullptr)
                         {
                             int idSong = pos->IntText();
@@ -100,6 +101,7 @@ public:
                 }
                 list = list->NextSiblingElement("Lista");
             }
+            insert=insert->NextSiblingElement("Insertar");
         }
         XMLElement *delet = doc.FirstChildElement("Eliminar");
         while (delet != nullptr)
@@ -149,6 +151,7 @@ public:
                 }
                 list = list->NextSiblingElement("Lista");
             }
+            delet=delet->NextSiblingElement("Eliminar");
         }
         cout << "------------------Lectura de archivo terminada------------------" << endl;
     }

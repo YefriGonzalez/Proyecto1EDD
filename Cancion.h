@@ -64,6 +64,7 @@ public:
                 temp = new Song{id, name, pathTmp, NULL};
                 ptr->next = temp; // luego de tener el ultimo nodo el siguiente sera temp
                 // y asi se cumple insertar al final
+                cout << "Cancion Agregada!!" << endl;
             }
             else if (id < ptr->id)
             {
@@ -81,6 +82,7 @@ public:
                             temp2->id=++id;
                             temp2=temp2->next;
                         }
+                        cout << "Cancion Agregada!!" << endl;
                     }
                     ptr = ptr->next;
                 }
