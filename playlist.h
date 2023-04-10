@@ -558,6 +558,7 @@ public:
         int id;
         this->displayListSimple();
         cout << "       Ingrese el id de la Play List que desea reproducir: ";
+        cin.ignore();
         cin >> id;
 
         play = start;
@@ -572,25 +573,17 @@ public:
         }
         if (type == 1)
         {
-            if (play == start)
-            {
-                start->listSongs->play(1);
-            }
-            else
-            {
-                play->listSongs->play(1);
-            }
+
+            play->listSongs->songPlay = nullptr;
+            play->listSongs->newList = nullptr;
+            play->listSongs->playSimple();
         }
         else if (type == 2)
         {
-            if (play == start)
-            {
-                start->listSongs->play(2);
-            }
-            else
-            {
-                play->listSongs->play(2);
-            }
+
+            play->listSongs->songPlay = nullptr;
+            play->listSongs->newList = nullptr;
+            play->listSongs->convertDoubleList(play->listSongs);
         }
     }
 
@@ -601,14 +594,7 @@ public:
             cout << "No hay lista en reproduccion" << endl;
             return;
         }
-        if (play == start)
-        {
-            start->listSongs->nextSong();
-        }
-        else
-        {
-            play->listSongs->nextSong();
-        }
+        play->listSongs->nextSong();
     }
 
     void backSong()
@@ -618,14 +604,8 @@ public:
             cout << "No hay lista en reproduccion" << endl;
             return;
         }
-        if (play == start)
-        {
-            start->listSongs->backSong();
-        }
-        else
-        {
-            play->listSongs->backSong();
-        }
+
+        play->listSongs->backSong();
     }
 };
 #endif

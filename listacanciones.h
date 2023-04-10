@@ -25,17 +25,18 @@ class ListSongs
 private:
     NodeSong *head;
     NodeSong *tail;
-    NodeSong *songPlay;
+
     thread tr;
-    bool finishTread;
+    bool finishPlay;
 
 public:
+    NodeSong *songPlay;
     ListSongs()
     {
         head = NULL;
         tail = NULL;
         songPlay = nullptr;
-        finishTread = false;
+        finishPlay = false;
     }
     void addSong(Song *song)
     {
@@ -88,7 +89,7 @@ public:
         }
         return nullptr;
     }
-    
+
     void deleteSong(string nombre)
     {
         if (head == NULL)
@@ -141,11 +142,11 @@ public:
             cout << "SDL_mixer no pudo inicializar! Error: " << Mix_GetError() << endl;
             return;
         }
-        if (songPlay == nullptr)
+        if (songPlay == nullptr && !finishPlay)
         {
             songPlay = head;
         }
-        while (songPlay != nullptr && !finishTread)
+        while (songPlay != nullptr)
         {
             Mix_Music *play = Mix_LoadMUS(songPlay->song->path.c_str());
             if (play == nullptr)
@@ -183,7 +184,7 @@ public:
         {
             songPlay = newList->head;
         }
-        while (songPlay != nullptr && !finishTread)
+        while (songPlay != nullptr)
         {
             Mix_Music *play = Mix_LoadMUS(songPlay->song->path.c_str());
             if (play == nullptr)
@@ -194,13 +195,9 @@ public:
             }
             // cout << "Reproduciendo " << songPlay->song->nombre << "..." << endl;
             Mix_PlayMusic(play, 1);
-            while (Mix_PlayingMusic() && !finishTread)
+            while (Mix_PlayingMusic())
             {
                 SDL_Delay(1000);
-            }
-            if (finishTread)
-            {
-                break;
             }
             Mix_FreeMusic(play);
             songPlay = songPlay->siguiente;
@@ -216,7 +213,6 @@ public:
             {
                 songPlay = songPlay->siguiente;
                 Mix_HaltMusic();
-                finishTread = true;
                 cout << "Siguiente" << endl;
                 if (newList == nullptr)
                 {
@@ -230,11 +226,16 @@ public:
             }
             else
             {
-                cout << "      La lista finalizo" << endl;
+                songPlay = nullptr;
+                newList = nullptr;
+                Mix_PauseMusic();
+                finishPlay = true;
+                play(1);
             }
         }
         else
         {
+            songPlay = nullptr;
             cout << "      No se esta reproduciendo ninguna lista" << endl;
         }
     }
@@ -246,7 +247,6 @@ public:
             if (songPlay->anterior != nullptr)
             {
                 songPlay = songPlay->anterior;
-                finishTread = true;
                 Mix_HaltMusic();
                 cout << "Anterior" << endl;
                 if (newList == nullptr)
@@ -260,6 +260,11 @@ public:
             }
             else
             {
+                songPlay = nullptr;
+                newList = nullptr;
+                Mix_PauseMusic();
+                finishPlay = true;
+                play(1);
                 cout << "      La lista finalizo" << endl;
             }
         }
@@ -272,36 +277,40 @@ public:
     ListSongs *newList;
     void convertDoubleList(ListSongs *listSong)
     {
-        // newList=nullptr;
+        songPlay = nullptr;
         newList = listSong;
+        finishPlay=false;
         if (newList->head == nullptr)
         {
             cout << "       La lista de canciones esta vacia" << endl;
             return;
         }
-        newList->displaySongs();
         newList->head->anterior = newList->tail;
         newList->tail->siguiente = newList->head;
-        this->playRepeat();
+        this->play(2);
     }
-
+    void playSimple(){
+        songPlay=nullptr;
+        newList=nullptr;
+        finishPlay=false;
+        play(1);
+    }
     void play(int type)
     {
-        if (songPlay != nullptr)
-        {
-            finishTread = true;
-        }
-        if (tr.joinable())
+        while (tr.joinable())
         {
             tr.detach();
         }
         if (type == 1)
         {
+            newList = nullptr;
             tr = thread(&ListSongs::playNormal, this);
+            tr.detach();
         }
         else if (type == 2)
         {
             tr = thread(&ListSongs::playRepeat, this);
+            tr.detach();
         }
     }
 };

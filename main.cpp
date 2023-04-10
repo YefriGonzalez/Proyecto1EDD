@@ -141,6 +141,7 @@ void menu()
                 cout << "   6.Agregar cancion a la lista" << endl;
                 cout << "   0.Regresar" << endl;
                 cout << "Ingrese la opcion: ";
+                cin.ignore();
                 cin >> opR;
                 switch (opR)
                 {

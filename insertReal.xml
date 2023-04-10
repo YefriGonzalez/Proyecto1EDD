@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Insertar>
+	<cancion>
+		<Nombre>
+			Ella baila sola
+		</Nombre>
+		<path>/home/yefri/Desktop/EDD 2023/Proyecto1/Songs/EllaBailaSola.mp3</path>
+	</cancion>
+	<cancion>
+		<Nombre>
+			Dijeron que no
+		</Nombre>
+		<path>/home/yefri/Desktop/EDD 2023/Proyecto1/Songs/DijeronQueNoLaIbaLograr.mp3</path>
+	</cancion>
+	<cancion>
+		<Nombre>
+			La bolsa gucci
+		</Nombre>
+		<path>Songs/LaBolsaGucci.mp3</path>
+	</cancion>
+	<cancion>
+		<Nombre>
+			Stay with me
+		</Nombre>
+		<path>/home/yefri/Desktop/EDD 2023/Proyecto1/Songs/StaywithmeAlexgoot.mp3</path>
+	</cancion>
+	<Lista>
+		<Nombre>
+			Lista 1
+		</Nombre>
+		<Description>
+			Lista 1
+		</Description>
+		<Canciones>
+			<pos>
+				1
+			</pos>
+			<pos>
+				2
+			</pos>
+		</Canciones>
+	</Lista>
+	<Lista>
+		<Nombre>
+			Lista 2
+		</Nombre>
+		<Description>
+			Lista 2
+		</Description>
+		<Canciones>
+			<pos>
+				3
+			</pos>
+			<pos>
+				4
+			</pos>
+		</Canciones>
+	</Lista>
+</Insertar>
