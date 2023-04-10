@@ -12,15 +12,14 @@ using namespace tinyxml2;
 class MassiveChargue
 {
 private:
-    XMLDocument doc;
-
 public:
     MassiveChargue()
     {
     }
 
-    void chargueFile(HandlerSong handlerS, HandlerPlayList handlerP)
+    void chargueFile(HandlerSong &handlerS, HandlerPlayList &handlerP)
     {
+        XMLDocument doc;
         string path;
 
         cout << "Ingrese el path del archivo XML: ";
@@ -69,7 +68,7 @@ public:
                 song = song->NextSiblingElement("cancion");
             }
             XMLElement *list = insert->FirstChildElement("Lista");
-            
+
             while (list != nullptr)
             {
                 string nameList;
@@ -78,8 +77,6 @@ public:
                 nameList = list->FirstChildElement("Nombre")->GetText();
                 descriptionList = list->FirstChildElement("Description")->GetText();
                 XMLElement *songList = list->FirstChildElement("Canciones");
-                cout << "Si lee lista 1 " << endl;
-
                 if (!nameList.empty() && !descriptionList.empty())
                 {
                     id = handlerP.addPlayListToFile(handlerS, nameList, descriptionList);
@@ -101,7 +98,7 @@ public:
                 }
                 list = list->NextSiblingElement("Lista");
             }
-            insert=insert->NextSiblingElement("Insertar");
+            insert = insert->NextSiblingElement("Insertar");
         }
         XMLElement *delet = doc.FirstChildElement("Eliminar");
         while (delet != nullptr)
@@ -111,8 +108,16 @@ public:
             {
                 int idSong = 0;
                 string nameSong;
-                nameSong = song->FirstChildElement("Nombre")->GetText();
-                idSong = song->FirstChildElement("id")->IntText();
+                XMLElement *namesongNode = song->FirstChildElement("Nombre");
+                XMLElement *idSongNode = song->FirstChildElement("id");
+                if (namesongNode != nullptr)
+                {
+                    nameSong = namesongNode->GetText();
+                }
+                if (idSongNode != nullptr)
+                {
+                    idSong = idSongNode->IntText();
+                }
                 if (!nameSong.empty())
                 {
                     handlerS.deleteSongToFile(2, idSong, nameSong);
@@ -128,30 +133,40 @@ public:
             {
                 int idList = 0;
                 string nameList;
-                nameList = list->FirstChildElement("Nombre")->GetText();
-                idList = list->FirstChildElement("id")->IntText();
-                tinyxml2::XMLElement *songList = list->FirstChildElement("Canciones");
+                XMLElement *nameListNode = list->FirstChildElement("Nombre");
+                XMLElement *idListNode = list->FirstChildElement("id");
+                if (nameListNode != nullptr)
+                {
+                    nameList = nameListNode->GetText();
+                }
+                if (idListNode != nullptr)
+                {
+                    idList = idListNode->IntText();
+                }
+
+                tinyxml2::XMLElement *songList = list->FirstChildElement("canciones");
                 if (!nameList.empty())
                 {
                     handlerP.deletePlayListToFile(2, idList, nameList);
                 }
                 else if (songList != nullptr && idList != 0)
                 {
-                    tinyxml2::XMLElement *pos = songList->FirstChildElement("pos");
+                    XMLElement *pos = songList->FirstChildElement("pos");
                     while (pos != nullptr)
                     {
                         int idSong = pos->IntText();
                         handlerP.deleteSongToFile(idList, idSong);
                         pos = pos->NextSiblingElement("pos");
                     }
+                    
                 }
-                else if (idList != 0)
+                else if (idList != 0 &&songList==nullptr)
                 {
                     handlerP.deletePlayListToFile(1, idList, " ");
                 }
                 list = list->NextSiblingElement("Lista");
             }
-            delet=delet->NextSiblingElement("Eliminar");
+            delet = delet->NextSiblingElement("Eliminar");
         }
         cout << "------------------Lectura de archivo terminada------------------" << endl;
     }

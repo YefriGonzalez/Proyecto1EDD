@@ -88,6 +88,7 @@ public:
         }
         return nullptr;
     }
+    
     void deleteSong(string nombre)
     {
         if (head == NULL)

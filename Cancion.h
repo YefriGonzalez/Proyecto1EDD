@@ -47,10 +47,11 @@ public:
             ++currentId;
         }
 
-        if (start == NULL && id == 1)
+        if (start == NULL)
         {
             temp = new Song{id, name, pathTmp, NULL};
             start = temp;
+            cout << "Cancion Agregada como primera!!" << endl;
         }
         else
         {
@@ -66,26 +67,35 @@ public:
                 // y asi se cumple insertar al final
                 cout << "Cancion Agregada!!" << endl;
             }
-            else if (id < ptr->id)
+            else if (id <= ptr->id)
             {
+                temp = new Song{id, name, pathTmp, NULL};
                 ptr = start;
-                while (ptr != NULL)
+                while (ptr->id != id)
                 {
-                    if (ptr->id == id)
-                    {
-                        temp = new Song{id, name, pathTmp, NULL};
-                        temp->next=ptr;
-                        ptr=temp;
-                        Song *temp2=ptr->next;
-                        while(temp2!=nullptr){
-                            int id=temp2->id;
-                            temp2->id=++id;
-                            temp2=temp2->next;
-                        }
-                        cout << "Cancion Agregada!!" << endl;
-                    }
                     ptr = ptr->next;
                 }
+                if(ptr==start){
+                    temp->next=start;
+                    start=temp;
+                } else {
+                    Song* backSong=start;
+                    while(backSong->next!=ptr){
+                        backSong=backSong->next;
+                    }
+                    temp->next=ptr;
+                    backSong->next=temp;
+                }
+                //temp->next = ptr->next;
+                //ptr->next = temp;
+                Song *temp2 =temp->next;
+                while (temp2 != nullptr)
+                {
+                    int id = temp2->id;
+                    temp2->id = ++id;
+                    temp2 = temp2->next;
+                }
+                cout << "Cancion Agregada!!" << endl;
             }
             else
             {

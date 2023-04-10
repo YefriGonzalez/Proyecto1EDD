@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <Eliminar>
-    <cancion>
-        <id>1</id>
-    </cancion>
-    <cancion>
-        <Nombre>Carga 2</Nombre>
-    </cancion>
     <Lista>
         <id>1</id>
+    </Lista>
+    <Lista>
+        <Nombre>Lista 2</Nombre>
     </Lista>
     <Lista>
         <id>3</id>

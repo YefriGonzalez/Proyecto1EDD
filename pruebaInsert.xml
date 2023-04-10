@@ -18,14 +18,11 @@
 		<path>path de carga 4</path>
 		<Pos>2</Pos>
 	</cancion>
-	
 	<cancion>
 		<Nombre>Carga 7</Nombre>
 		<path>path de carga 7</path>
 		<Pos>7</Pos>
 	</cancion>
-	
-		
 	<Lista>
 		<Nombre>Lista 1</Nombre>
 		<Description>Lista 1</Description>
@@ -44,5 +41,4 @@
 			<pos>7</pos>
 		</Canciones>
 	</Lista>
-	
 </Insertar>
