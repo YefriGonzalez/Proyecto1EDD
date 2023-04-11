@@ -555,12 +555,19 @@ public:
             cout << "       La lista esta vacia" << endl;
             return;
         }
+        if(play!=nullptr){
+            if(play->listSongs->newList!=nullptr){
+                play->listSongs->newList->head->anterior = nullptr;
+                play->listSongs->tail->siguiente = nullptr;
+            }
+        }
         int id;
         this->displayListSimple();
         cout << "       Ingrese el id de la Play List que desea reproducir: ";
         cin.ignore();
+        cin.clear();
         cin >> id;
-
+        play = nullptr;
         play = start;
         while (play != NULL && play->id != id)
         {
@@ -573,18 +580,29 @@ public:
         }
         if (type == 1)
         {
-
             play->listSongs->songPlay = nullptr;
+            play->listSongs->songPlayRepeat = nullptr;
             play->listSongs->newList = nullptr;
             play->listSongs->playSimple();
         }
         else if (type == 2)
         {
-
             play->listSongs->songPlay = nullptr;
             play->listSongs->newList = nullptr;
-            play->listSongs->convertDoubleList(play->listSongs);
+            play->listSongs->songPlayRepeat = nullptr;
+            ListSongs *temp=play->listSongs;
+            play->listSongs->convertDoubleList(temp);
         }
+    }
+
+    void viewPlays()
+    {
+        if (play == nullptr)
+        {
+            cout << "No hay lista en reproduccion" << endl;
+            return;
+        }
+        play->listSongs->viewPlays();
     }
 
     void nextSong()

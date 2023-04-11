@@ -147,15 +147,13 @@ void menu()
                 {
                 case 1:
                 {
-                    // thread play(reproducir,ref(handlerPlayList),1);
-                    // thread h(bind(&HandlerPlayList::playToList,(1,handlerPlayList)));
+   
                     handlerPlayList.playToList(1);
                 }
 
                 break;
                 case 2:
                 {
-                    // thread play(reproducir,ref(handlerPlayList),2);
                     handlerPlayList.playToList(2);
                 }
                 case 3:
@@ -163,6 +161,9 @@ void menu()
                     break;
                 case 4:
                     handlerPlayList.backSong();
+                    break;
+                case 5:
+                    handlerPlayList.viewPlays();
                     break;
                 default:
                     break;
@@ -176,7 +177,6 @@ void menu()
             ms.chargueFile(handlerSong, handlerPlayList);
         }
         break;
-
         default:
         {
         }
