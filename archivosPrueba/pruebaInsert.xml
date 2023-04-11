@@ -1,44 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Insertar>
 	<cancion>
-		<Nombre>Carga 1</Nombre>
-		<path>path de carga 1</path>
+		<Nombre>Yellow</Nombre>
+		<path>Songs/Coldplay - Yellow (Letra Lyrics EnglishSpanish - EspañolInglés).mp3</path>
 	</cancion>
 	<cancion>
-		<Nombre>Carga 2</Nombre>
-		<path>path de carga 2</path>
+		<Nombre>Me Canse EL clubo</Nombre>
+		<path>Songs/El CLubo (Me canse).mp3</path>
 	</cancion>
 	<cancion>
-		<Nombre>Carga 3</Nombre>
-		<path>path de carga 3</path>
+		<Nombre>Mi historia entre tus dedos</Nombre>
+		<path>Songs/Gianluca Grignani  Mi Historia Entre Tus Dedos [Letra].mp3</path>
 		<Pos>3</Pos>
 	</cancion>
 	<cancion>
-		<Nombre>Carga 4</Nombre>
-		<path>path de carga 4</path>
-		<Pos>2</Pos>
+		<Nombre>Mentirosa Elefante</Nombre>
+		<path>Songs/Mentirosa - Elefante  Letra.mp3</path>
 	</cancion>
 	<cancion>
-		<Nombre>Carga 7</Nombre>
-		<path>path de carga 7</path>
-		<Pos>7</Pos>
+		<Nombre>Me canse de amarte</Nombre>
+		<path>Songs/Me canse de amarte- los rancheros.mp3</path>
+	</cancion>
+	<cancion>
+		<Nombre>Perdicion</Nombre>
+		<path>Songs/Viento en Contra - Perdicion.mp3</path>
 	</cancion>
 	<Lista>
 		<Nombre>Lista 1</Nombre>
 		<Description>Lista 1</Description>
-	</Lista>
-	<Lista>
-		<Nombre>Lista 2</Nombre>
-		<Description>Lista 2</Description>
-	</Lista>
-	<Lista>
-		<Nombre>Lista 3</Nombre>
-		<Description>Lista 3</Description>
 		<Canciones>
 			<pos>1</pos>
 			<pos>2</pos>
 			<pos>3</pos>
-			<pos>7</pos>
+		</Canciones>
+	</Lista>
+	<Lista>
+		<Nombre>Lista 1</Nombre>
+		<Description>Lista 1</Description>
+		<Canciones>
+			<pos>4</pos>
+			<pos>5</pos>
+			<pos>6</pos>
 		</Canciones>
 	</Lista>
 </Insertar>

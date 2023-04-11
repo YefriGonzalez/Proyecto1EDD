@@ -1,3 +1,5 @@
+Author: Yefri Marconi Gonzalez Vicente
+
 Comandos necesarios para ejecutar el programa: 
 sudo apt-get install libsdl2-dev
 sudo apt-get install libsdl2-image-dev  
