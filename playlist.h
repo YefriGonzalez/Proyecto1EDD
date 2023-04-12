@@ -118,9 +118,10 @@ struct PlayList
     void ediPlayList()
     {
         cout << "   Ingrese el nuevo nombre de la lista: ";
-        cin >> this->name;
+        cin.ignore();
+        getline(cin,this->name);
         cout << "   Ingrese la descripcion de la lista: ";
-        cin >> this->description;
+        getline(cin,this->description);
     }
 };
 class HandlerPlayList

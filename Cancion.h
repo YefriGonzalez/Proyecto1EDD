@@ -75,20 +75,24 @@ public:
                 {
                     ptr = ptr->next;
                 }
-                if(ptr==start){
-                    temp->next=start;
-                    start=temp;
-                } else {
-                    Song* backSong=start;
-                    while(backSong->next!=ptr){
-                        backSong=backSong->next;
-                    }
-                    temp->next=ptr;
-                    backSong->next=temp;
+                if (ptr == start)
+                {
+                    temp->next = start;
+                    start = temp;
                 }
-                //temp->next = ptr->next;
-                //ptr->next = temp;
-                Song *temp2 =temp->next;
+                else
+                {
+                    Song *backSong = start;
+                    while (backSong->next != ptr)
+                    {
+                        backSong = backSong->next;
+                    }
+                    temp->next = ptr;
+                    backSong->next = temp;
+                }
+                // temp->next = ptr->next;
+                // ptr->next = temp;
+                Song *temp2 = temp->next;
                 while (temp2 != nullptr)
                 {
                     int id = temp2->id;
@@ -170,7 +174,8 @@ public:
         else
         {
             cout << "   Ingrese el nombre que desea buscar: ";
-            cin >> name;
+            cin.ignore();
+            getline(cin,name);
             ptr = start;
             while (ptr != NULL)
             {
@@ -215,6 +220,7 @@ public:
             cout << "   La lista esta vacia" << endl;
             return;
         }
+
         int opcion = 0;
         Song *temp, *ptr;
         string n;
@@ -228,8 +234,8 @@ public:
         {
         case 1:
             int pos;
-
-            cout << "       Ingrese el id: ";
+            displaySongs();
+            cout << "       Ingrese el id de la cancion que desea eliminar: ";
             cin >> pos;
             if (!cin)
             {
@@ -265,9 +271,10 @@ public:
 
             break;
         case 2:
-
-            cout << "       Ingrese el nombre: ";
-            cin >> n;
+            displaySongs();
+            cout << "       Ingrese el nombre de la cancion que desea eliminar: ";
+            cin.ignore();
+            getline(cin,n);
             ptr = start;
 
             while (ptr != NULL && ptr->nombre != n)
