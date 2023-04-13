@@ -119,9 +119,9 @@ struct PlayList
     {
         cout << "   Ingrese el nuevo nombre de la lista: ";
         cin.ignore();
-        getline(cin,this->name);
+        getline(cin, this->name);
         cout << "   Ingrese la descripcion de la lista: ";
-        getline(cin,this->description);
+        getline(cin, this->description);
     }
 };
 class HandlerPlayList
@@ -133,6 +133,7 @@ public:
     HandlerPlayList()
     {
         start = nullptr;
+        play=nullptr;
         currentId = 0;
     }
 
@@ -556,12 +557,19 @@ public:
             cout << "       La lista esta vacia" << endl;
             return;
         }
-        if(play!=nullptr){
-            if(play->listSongs->newList!=nullptr){
-                play->listSongs->newList->head->anterior = nullptr;
-                play->listSongs->tail->siguiente = nullptr;
+        if (play != nullptr)
+        {
+            cout<<"entro aqui"<<endl;
+            if (play->listSongs != nullptr)
+            {
+                if (play->listSongs->newList != nullptr)
+                {
+                    play->listSongs->newList->head->anterior = nullptr;
+                    play->listSongs->tail->siguiente = nullptr;
+                }
             }
         }
+        
         int id;
         this->displayListSimple();
         cout << "       Ingrese el id de la Play List que desea reproducir: ";
@@ -591,7 +599,7 @@ public:
             play->listSongs->songPlay = nullptr;
             play->listSongs->newList = nullptr;
             play->listSongs->songPlayRepeat = nullptr;
-            ListSongs *temp=play->listSongs;
+            ListSongs *temp = play->listSongs;
             play->listSongs->convertDoubleList(temp);
         }
     }
